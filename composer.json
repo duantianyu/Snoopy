@@ -1,5 +1,5 @@
 {
-    "name": "duantianyu/Snoopy",
+    "name": "duantianyu/snoopy",
     "type": "library",
     "description": "A PHP class that simulates a web browser",
     "keywords": ["snoopy","logging"],
