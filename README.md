@@ -1,8 +1,8 @@
-##NAME:
+## NAME:
 
 	Snoopy - the PHP net client v2.0.0
 	
-##SYNOPSIS:
+## SYNOPSIS:
 
 	include "Snoopy.class.php";
 	$snoopy = new Snoopy;
@@ -33,14 +33,14 @@
 	$snoopy->fetchform("http://www.altavista.com");
 	print $snoopy->results;
 
-##DESCRIPTION:
+## DESCRIPTION:
 
-####What is Snoopy?
+#### What is Snoopy?
 	
 	Snoopy is a PHP class that simulates a web browser. It automates the
 	task of retrieving web page content and posting forms, for example.
 
-####Some of Snoopy's features:
+#### Some of Snoopy's features:
 	
 	* easily fetch the contents of a web page
 	* easily fetch the text from a web page (strip html tags)
@@ -55,14 +55,14 @@
 	* supports passing cookies on redirects (added v0.92)
 	
 	
-##REQUIREMENTS:
+## REQUIREMENTS:
 
 	Snoopy requires PHP with PCRE (Perl Compatible Regular Expressions),
 	and the OpenSSL extension for fetching HTTPS requests.	
 
-##CLASS METHODS:
+## CLASS METHODS:
 
-#####fetch($URI)
+##### fetch($URI)
 	
 	This is the method used for fetching the contents of a web page.
 	$URI is the fully qualified URL of the page to fetch.
@@ -70,44 +70,44 @@
 	If you are fetching frames, then $this->results
 	contains each frame fetched in an array.
 		
-#####fetchtext($URI)
+##### fetchtext($URI)
 	
 	This behaves exactly like fetch() except that it only returns
 	the text from the page, stripping out html tags and other
 	irrelevant data.		
 
-#####fetchform($URI)
+##### fetchform($URI)
 	
 	This behaves exactly like fetch() except that it only returns
 	the form elements from the page, stripping out html tags and other
 	irrelevant data.		
 
-#####fetchlinks($URI)
+##### fetchlinks($URI)
 
 	This behaves exactly like fetch() except that it only returns
 	the links from the page. By default, relative links are
 	converted to their fully qualified URL form.
 
-#####submit($URI,$formvars)
+##### submit($URI,$formvars)
 	
 	This submits a form to the specified $URI. $formvars is an
 	array of the form variables to pass.
 		
 		
-#####submittext($URI,$formvars)
+##### submittext($URI,$formvars)
 
 	This behaves exactly like submit() except that it only returns
 	the text from the page, stripping out html tags and other
 	irrelevant data.		
 
-#####submitlinks($URI)
+##### submitlinks($URI)
 
 	This behaves exactly like submit() except that it only returns
 	the links from the page. By default, relative links are
 	converted to their fully qualified URL form.
 
 
-##CLASS VARIABLES:	(default value in parenthesis)
+## CLASS VARIABLES:	(default value in parenthesis)
 
 	$host			the host to connect to
 	$port			the port to connect to
@@ -142,10 +142,10 @@
 					verification is enabled
 	
 
-##EXAMPLES:
+## EXAMPLES:
 
-####Example: 	
-######fetch a web page and display the return headers and the contents of the page (html-escaped):
+#### Example: 	
+###### fetch a web page and display the return headers and the contents of the page (html-escaped):
 	
 	include "Snoopy.class.php";
 	$snoopy = new Snoopy;
@@ -167,7 +167,7 @@
 
 
 
-######Example:
+###### Example:
 submit a form and print out the result headers and html-escaped page:
 
 	include "Snoopy.class.php";
@@ -193,7 +193,7 @@ submit a form and print out the result headers and html-escaped page:
 
 
 
-######Example:
+###### Example:
 showing functionality of all the variables:
 	
 
@@ -230,7 +230,7 @@ showing functionality of all the variables:
 		echo "error fetching document: ".$snoopy->error."\n";
 
 
-######Example:
+###### Example:
 fetched framed content and display the results
 	
 	include "Snoopy.class.php";
@@ -248,13 +248,13 @@ fetched framed content and display the results
 		echo "error fetching document: ".$snoopy->error."\n";
 
 
-##COPYRIGHT:
+## COPYRIGHT:
 	Copyright(c) 1999,2000 ispi. All rights reserved.
 	This software is released under the GNU General Public License.
 	Please read the disclaimer at the top of the Snoopy.class.php file.
 
 
-##THANKS:
+## THANKS:
 	Special Thanks to:
 	Peter Sorger <sorgo@cool.sk> help fixing a redirect bug
 	Andrei Zmievski <andrei@ispi.net> implementing time out functionality
