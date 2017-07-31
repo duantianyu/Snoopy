@@ -3,11 +3,12 @@
     "type": "library",
     "description": "A PHP class that simulates a web browser",
     "keywords": ["snoopy","logging"],
+    "version": "2.0.0",
     "require": {
 		"php": ">=5.3",
         "lib-openssl": "*"
 	},
     "autoload": {
-        "classmap": ["Snoopy.class.php"]
+        "classmap": ["src/Snoopy.php"]
     }
 }
