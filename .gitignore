@@ -1,0 +1,6 @@
+# For MacOS:
+.DS_Store
+
+# For *nix:
+*.swp
+

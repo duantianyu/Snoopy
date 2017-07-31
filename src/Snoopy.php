@@ -1,4 +1,5 @@
 <?php
+namespace Snoopy;
 
 /*************************************************
  *
@@ -32,81 +33,82 @@ class Snoopy
 
     /* user definable vars */
 
-    var $scheme = 'http'; // http or https
-    var $host = "www.php.net"; // host name we are connecting to
-    var $port = 80; // port we are connecting to
-    var $proxy_host = ""; // proxy host to use
-    var $proxy_port = ""; // proxy port to use
-    var $proxy_user = ""; // proxy user to use
-    var $proxy_pass = ""; // proxy password to use
+    public $scheme = 'http'; // http or https
+    public $host = "www.php.net"; // host name we are connecting to
+    public $port = 80; // port we are connecting to
+    public $proxy_host = ""; // proxy host to use
+    public $proxy_port = ""; // proxy port to use
+    public $proxy_user = ""; // proxy user to use
+    public $proxy_pass = ""; // proxy password to use
 
-    var $agent = "Snoopy v2.0.0"; // agent we masquerade as
-    var $referer = ""; // referer info to pass
-    var $cookies = array(); // array of cookies to pass
+    //public $agent = "Snoopy v2.0.0"; // agent we masquerade as
+    public $agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36"; // agent we masquerade as
+    public $referer = ""; // referer info to pass
+    public $cookies = array(); // array of cookies to pass
     // $cookies["username"]="joe";
-    var $rawheaders = array(); // array of raw headers to send
+    public $rawheaders = array(); // array of raw headers to send
     // $rawheaders["Content-type"]="text/html";
 
-    var $maxredirs = 5; // http redirection depth maximum. 0 = disallow
-    var $lastredirectaddr = ""; // contains address of last redirected address
-    var $offsiteok = true; // allows redirection off-site
-    var $maxframes = 0; // frame content depth maximum. 0 = disallow
-    var $expandlinks = true; // expand links to fully qualified URLs.
+    public $maxredirs = 5; // http redirection depth maximum. 0 = disallow
+    public $lastredirectaddr = ""; // contains address of last redirected address
+    public $offsiteok = true; // allows redirection off-site
+    public $maxframes = 0; // frame content depth maximum. 0 = disallow
+    public $expandlinks = true; // expand links to fully qualified URLs.
     // this only applies to fetchlinks()
     // submitlinks(), and submittext()
-    var $passcookies = true; // pass set cookies back through redirects
+    public $passcookies = true; // pass set cookies back through redirects
     // NOTE: this currently does not respect
     // dates, domains or paths.
 
-    var $user = ""; // user for http authentication
-    var $pass = ""; // password for http authentication
+    public $user = ""; // user for http authentication
+    public $pass = ""; // password for http authentication
 
     // http accept types
-    var $accept = "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*";
+    public $accept = "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*";
 
-    var $results = ""; // where the content is put
+    public $results = ""; // where the content is put
 
-    var $error = ""; // error messages sent here
-    var $response_code = ""; // response code returned from server
-    var $headers = array(); // headers returned from server sent here
-    var $maxlength = 500000; // max return data length (body)
-    var $read_timeout = 0; // timeout on read operations, in seconds
+    public $error = ""; // error messages sent here
+    public $response_code = ""; // response code returned from server
+    public $headers = array(); // headers returned from server sent here
+    public $maxlength = 500000; // max return data length (body)
+    public $read_timeout = 0; // timeout on read operations, in seconds
     // supported only since PHP 4 Beta 4
     // set to 0 to disallow timeouts
-    var $timed_out = false; // if a read operation timed out
-    var $status = 0; // http request status
+    public $timed_out = false; // if a read operation timed out
+    public $status = 0; // http request status
 
-    var $temp_dir = "/tmp"; // temporary directory that the webserver
+    public $temp_dir = "/tmp"; // temporary directory that the webserver
     // has permission to write to.
     // under Windows, this should be C:\temp
 
-    var $curl_path = false;
+    public $curl_path = false;
     // deprecated, snoopy no longer uses curl for https requests,
     // but instead requires the openssl extension.
 
     // send Accept-encoding: gzip?
-    var $use_gzip = true;
+    public $use_gzip = true;
 
     // file or directory with CA certificates to verify remote host with
-    var $cafile;
-    var $capath;
+    public $cafile;
+    public $capath;
 
     /**** Private variables ****/
 
-    var $_maxlinelen = 4096; // max line length (headers)
+    private $_maxlinelen = 4096; // max line length (headers)
 
-    var $_httpmethod = "GET"; // default http request method
-    var $_httpversion = "HTTP/1.0"; // default http request version
-    var $_submit_method = "POST"; // default submit method
-    var $_submit_type = "application/x-www-form-urlencoded"; // default submit type
-    var $_mime_boundary = ""; // MIME boundary for multipart/form-data submit type
-    var $_redirectaddr = false; // will be set if page fetched is a redirect
-    var $_redirectdepth = 0; // increments on an http redirect
-    var $_frameurls = array(); // frame src urls
-    var $_framedepth = 0; // increments on frame depth
+    private $_httpmethod = "GET"; // default http request method
+    private $_httpversion = "HTTP/1.0"; // default http request version
+    private $_submit_method = "POST"; // default submit method
+    private $_submit_type = "application/x-www-form-urlencoded"; // default submit type
+    private $_mime_boundary = ""; // MIME boundary for multipart/form-data submit type
+    private $_redirectaddr = false; // will be set if page fetched is a redirect
+    private $_redirectdepth = 0; // increments on an http redirect
+    private $_frameurls = array(); // frame src urls
+    private $_framedepth = 0; // increments on frame depth
 
-    var $_isproxy = false; // set if using a proxy server
-    var $_fp_timeout = 30; // timeout for socket connection
+    private $_isproxy = false; // set if using a proxy server
+    private $_fp_timeout = 30; // timeout for socket connection
 
     /*======================================================================*\
         Function:	fetch
@@ -119,7 +121,6 @@ class Snoopy
 
     function fetch($URI)
     {
-
         $URI_PARTS = parse_url($URI);
         if (!empty($URI_PARTS["user"]))
             $this->user = $URI_PARTS["user"];
@@ -466,7 +467,7 @@ class Snoopy
 
 
         // catenate the non-empty matches from the conditional subpattern
-
+        $match = [];
         while (list($key, $val) = each($links[2])) {
             if (!empty($val))
                 $match[] = $val;
@@ -857,7 +858,7 @@ class Snoopy
                 if (isset($this->capath))
                     $context_opts['ssl']['capath'] = $this->capath;
             }
-                    
+
             $host = 'ssl://' . $host;
         }
 
@@ -879,8 +880,7 @@ class Snoopy
                 $port,
                 $errno,
                 $errstr,
-                $this->_fp_timeout,
-                $context);
+                $this->_fp_timeout);
         }
 
         if ($fp) {
@@ -892,10 +892,13 @@ class Snoopy
             switch ($errno) {
                 case -3:
                     $this->error = "socket creation failed (-3)";
+                    break;
                 case -4:
                     $this->error = "dns lookup failure (-4)";
+                    break;
                 case -5:
                     $this->error = "connection refused or timed out (-5)";
+                    break;
                 default:
                     $this->error = "connection failed (" . $errno . ")";
             }
@@ -997,5 +1000,3 @@ class Snoopy
         return $this->results;
     }
 }
-
-?>
